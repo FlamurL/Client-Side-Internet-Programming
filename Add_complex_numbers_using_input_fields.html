@@ -1,0 +1,53 @@
+<!--
+Create a web page where two complex numbers are entered through the text fields (shown in the EXAMPLE
+below). The page will also contain the Add button, which will collect both complex numbers as a result and
+will write the result into two text fields.
+
+EXAMPLE:
+[ 2 ] [ -7 ] i
+
+[ 4 ] [ 3 ] i
+
+[ Add ]
+
+[ 6 ] [ -4 ] i
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        function add(){
+            var real1 = document.getElementById("real1").value;
+            var real2 = document.getElementById("real2").value;
+            var imaginary1 = document.getElementById("imaginary1").value;
+            var imaginary2 = document.getElementById("imaginary2").value;
+console.log(real1);
+         var real=parseInt(real1)+parseInt(real2);
+         var imaginary=parseInt(imaginary2)+parseInt(imaginary1);
+         console.log(real);
+         document.getElementById("real").value=real;
+         document.getElementById("imaginary").value=imaginary;
+        }
+    </script>
+</head>
+<body>
+<input type="number" name="real1" id="real1">
+<input type="number" name = "imaginary1" id = "imaginary1"> i
+<br>
+<br>
+<input type="number" name="real2" id="real2">
+<input type="number" name = "imaginary2" id = "imaginary2"> i
+<br>
+<button type="button" onclick="add()">Add</button>
+<div id = "rezult">
+    <input type="number" name="real" id="real" disabled>
+    <input type="number" name="imaginary" id="imaginary" disabled> i
+</div>
+</body>
+</html>
