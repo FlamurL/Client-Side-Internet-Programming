@@ -1,0 +1,42 @@
+<!--
+Create an array of objects, where each object represents a book with the following
+properties title (string), author (string), and alreadyRead (a boolean indicating whether it has been read or not).
+Iterate through all the objects in the array and for each object print the author, the name of the book, and
+based on whether it has been read or not, print an appropriate message.
+Ex.
+'You already read "The Hobbit" by J.R.R. Tolkien'
+'You still need to read "The Lord of the Rings" by J.R.R. Tolkien.'
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const books = [
+        { title: "The Great Gatsby", author: "F. Scott Fitzgerald", alreadyRead: true },
+        { title: "1984", author: "George Orwell", alreadyRead: false },
+        { title: "To Kill a Mockingbird", author: "Harper Lee", alreadyRead: true },
+        { title: "The Catcher in the Rye", author: "J.D. Salinger", alreadyRead: false },
+        { title: "Moby-Dick", author: "Herman Melville", alreadyRead: true },
+        { title: "War and Peace", author: "Leo Tolstoy", alreadyRead: false },
+        { title: "Pride and Prejudice", author: "Jane Austen", alreadyRead: true },
+        { title: "The Hobbit", author: "J.R.R. Tolkien", alreadyRead: false },
+        { title: "The Odyssey", author: "Homer", alreadyRead: true },
+        { title: "Crime and Punishment", author: "Fyodor Dostoevsky", alreadyRead: false }
+    ];
+    for (i = 0; i < books.length; i++) {
+if(books[i].alreadyRead===true){
+    console.log(`You already read ${books[i].title} by ${books[i].author}`);
+}
+else{
+    console.log(`You still need to read ${books[i].title} by ${books[i].author}`);
+}
+    }
+
+
+</script>
+</body>
+</html>
