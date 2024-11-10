@@ -1,0 +1,31 @@
+<!--
+Write a function in JavaScript that takes a list as an argument and returns a list where duplicates are removed.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+   function removeDuplicates(list)
+    {
+        var newArr = Array();
+        for (var i = 0; i < list.length-1; i++) {
+            let is = true;
+            for (var j = i + 1; j < list.length; j++) {
+
+                if(list[j] ===list[i]){
+                        is=false;
+                        break;
+                    }
+            }
+            if(is){
+                newArr.push(list[i]);
+            }
+        }
+    }
+</script>
+</body>
+</html>
