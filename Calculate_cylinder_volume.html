@@ -1,0 +1,24 @@
+<!--
+Write a JavaScript program that calculates the volume of a cylinder (using the
+class/prototype)
+Volume of a cylinder = πr^2h
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+function Cylinder(radius,height){
+    this.radius = radius;
+    this.height = height;
+    this.volume=this.height * this.radius * this.radius * Math.PI;
+
+}
+var cylinder = new Cylinder(10, 15);
+console.log(cylinder.volume);
+</script>
+</body>
+</html>
