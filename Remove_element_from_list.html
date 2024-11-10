@@ -1,0 +1,25 @@
+<!--
+Write a JavaScript function that takes a list and an element as arguments. The function should
+return a new list, where the given element has been deleted from the original list:
+Example:
+console.log(remove_array_element([2, 5, 9, 6], 5));
+[2, 9, 6]
+
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+   function removeUniqueElement(list, element)
+    {
+    return list.filter(elementInTheList => elementInTheList !== element);
+    }
+   console.log(removeUniqueElement([2,5,9,6], 5));
+</script>
+</body>
+</html>
