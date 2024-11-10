@@ -1,0 +1,50 @@
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>About Me</title>
+</head>
+<body>
+<h1>About Me</h1>
+<ul>
+<li>Name: <span id="name"></span>
+<li>Index: <span id="index"></span>
+<li>Hometown: <span id="hometown"></span>
+</ul>
+</body>
+</html>
+Type a JavaScript code that will make the following changes:
+The body tag will set Arial font
+It will fill the content of the span tags with the appropriate information (name, surname and city).
+Set red color to every li tag
+
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>About Me</title>
+</head>
+<body>
+<h1>About Me</h1>
+<ul>
+    <li>Name: <span id="name"></span>
+    <li>Index: <span id="index"></span>
+    <li>Hometown: <span id="hometown"></span>
+</ul>
+<script>
+    var body = document.querySelector("body").style.fontFamily="Arial";
+document.getElementById("name").innerHTML = "Flamur";
+document.getElementById("index").innerHTML = "232323";
+document.getElementById("hometown").innerHTML ="Kumanovo";
+var allLists= document.querySelectorAll("li");
+for (var i = 0; i < allLists.length; i++) {
+
+    allLists[i].style.background = "red";
+}
+
+</script>
+</body>
+</html>
