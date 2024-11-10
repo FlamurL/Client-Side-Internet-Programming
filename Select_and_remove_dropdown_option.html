@@ -1,0 +1,49 @@
+<!--
+To do: write a function removeColor() that prints in the console the currently selected element from the
+list and will be deleted from it.
+<!DOCTYPE html>
+<html><head>
+<meta charset=utf-8 />
+<title>Title</title>
+</head>
+<body><form>
+<select id="colorSelect">
+<option>Red</option>
+<option>Green</option>
+<option>White</option>
+<option>Black</option>
+</select>
+<input type="button" onclick="removecolor()" value="Select and Remove"><br></form>
+</body>
+</html>
+
+-->
+
+<!DOCTYPE html>
+<html><head>
+    <meta charset=utf-8 />
+    <title>Title</title>
+
+</head>
+<body><form>
+    <select id="colorSelect">
+        <option>Red</option>
+        <option>Green</option>
+        <option>White</option>
+        <option>Black</option>
+    </select>
+    <input type="button" onclick="removecolor()" value="Select and Remove"><br></form>
+
+<script>
+    function removecolor(){
+    var selectedColor = document.getElementById("colorSelect");
+    var toRemove = selectedColor.options[selectedColor.selectedIndex].text;
+
+    console.log("Removing color:",toRemove);
+
+       selectedColor.remove(selectedColor.selectedIndex);
+    }
+</script>
+
+</body>
+</html>
