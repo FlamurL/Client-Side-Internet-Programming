@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+#full-page{
+  padding:10px;
+}
+
+label{
+  display:inline-block;
+  width:100px;
+}
+#name, #surname, #year, #code, #genderOfStudent{
+  padding-bottom:10px;
+}
+#middle-part{
+  padding-top:10px;
+  padding-bottom:20px;
+}
+table, th, td{
+border:1px solid black;
+  border-collapse: collapse;
+  padding:2px 30px;
+  text-align:center
+
+
+}
+  </style>
+  <script>
+    var totalPart =0;
+    function onClick(){
+var name=document.getElementById("name1");
+      var surname=document.getElementById("surname1");
+      var year=document.getElementById("year1");
+      var code=document.getElementById("code1");
+      var gender=document.getElementById("gender1");
+     if(name.value===""||surname.value===""||year.value===""||code.value===""||gender.value===""){
+       alert("All fields are required");
+     return;
+     }
+      var tag=convertTag(code.value);
+     var contents=document.createElement("tr");
+     var row=document.getElementById("students-in-table")
+
+      if(year.value>=18) {
+        contents.innerHTML = `
+<td>${name.value}</td>
+<td>${surname.value}</td>
+<td>${tag}</td>
+<td><button id="confirm-btn" onclick="confirmRow(this)">Confirm</button>
+<button id="confirmm-btn" onclick="deleteRow(this)">Delete</button></td>`;
+      }
+      else{
+        contents.innerHTML = `
+<td>${name.value}</td>
+<td>${surname.value}</td>
+<td>${tag}</td>
+<td><button disabled="true" id="confirm-btn" onclick="confirmRow(this)">Confirm</button>
+<button disabled="true" id="confirmm-btn" onclick="deleteRow(this)">Delete</button></td>`;
+      }
+if(gender.value==="Male"){
+  contents.style.backgroundColor="blue";
+}
+else{
+  contents.style.backgroundColor="red";
+}
+if(year.value<18){
+  contents.disabled=true;
+}
+row.appendChild(contents);
+
+
+      name.value=""
+        surname.value=""
+        year.value=""
+        code.value=""
+        gender.value=""
+
+
+
+    }
+
+
+
+    function confirmRow(btn){
+      totalPart++;
+      var total=document.getElementById("total-val");
+      var row=btn.parentNode.parentNode;
+
+      total.innerHTML=totalPart;
+      btn.disabled=true;
+      var deletebtn=btn.nextElementSibling;
+      deletebtn.disabled=true;
+    }
+
+    function deleteRow(btn){
+
+      var total=document.getElementById("total-val");
+      total.innerHTML=totalPart;
+var row=btn.parentNode.parentNode;
+var table=document.getElementById("students-in-table");
+table.removeChild(row);
+    }
+
+
+
+
+
+    function convertTag(code){
+
+      var tag="";
+      for(let i=0;i<code.length;i++){
+        if(isNaN(code[i])){
+          if(code[i].toLowerCase()===code[i]){
+            tag+=code[i].toUpperCase();
+          }
+          else{
+            tag+=code[i].toLowerCase();
+          }
+        }
+        else{
+          if(code[i]>=5){
+            tag+=code[i];
+          }
+        }
+      }
+
+      return tag;
+    }
+
+  </script>
+</head>
+<body>
+<div id="full-page">
+  <div id="upper-part">
+    <h1>Students in Marathon</h1>
+    <div id="content">
+      <div id="name">
+        <label>Name</label>
+        <input type="text" id="name1">
+      </div>
+      <div id="surname">
+        <label>Surname</label>
+        <input type="text" id="surname1">
+      </div>
+      <div id="year">
+        <label>Age</label>
+        <input type="text" id="year1">
+      </div>
+      <div id="code">
+        <label>Code</label>
+        <input type="text" id="code1">
+      </div>
+      <div id="genderOfStudent">
+        <label>Gender</label>
+        <select id="gender1">
+          <option></option>
+          <option>Male</option>
+          <option>Female</option>
+        </select>
+      </div>
+    </div>
+<div id="button-container">
+  <input type="button" id="submit" onclick="onClick()" value="Add Student">
+</div>
+  </div>
+  <div id="middle-part">
+<table>
+  <thead>
+  <th>Name</th>
+  <th>Surname</th>
+  <th>Tag</th>
+  <th>Options</th>
+  </thead>
+  <tbody id="students-in-table"></tbody>
+</table>
+  </div>
+  <div id="lower-part">
+    <h2> Total confirmed participants: <span id="total-val">0</span></h2>
+  </div>
+</div>
+</body>
+</html>
