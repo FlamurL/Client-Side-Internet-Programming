@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+      #header{
+         display:flex;
+          gap:15rem;
+      }
+#full{
+    padding:10px;
+}
+#name{
+padding-bottom:20px;
+}
+#index, #phone, #grades{
+    padding-bottom:20px;
+}
+label{
+    display: inline-block;
+    width: 100px;
+}
+#session{
+    padding-bottom:20px;
+}
+      table,th,td
+      {
+          border: 1px solid black;
+          border-collapse: collapse;
+          text-align: center;
+          padding:2px 50px;
+      }
+
+  </style>
+  <script>
+      var cntOfStudents =0;
+      var sum = 0;
+function calculate() {
+    var name = document.getElementById("name1");
+    var index = document.getElementById("index1");
+    var phone = document.getElementById("phone1");
+    var grade5 = document.getElementById("grades5");
+    var grade6 = document.getElementById("grades6");
+    var grade7 = document.getElementById("grades7");
+    var grade8 = document.getElementById("grades8");
+    var grade9 = document.getElementById("grades9");
+    var grade10 = document.getElementById("grades10");
+    var session = document.getElementById("session1");
+
+var grade;
+    if (name.value !== "" && index.value !== "" && phone.value !== "" && session.value !== "" && checkGradeValidation(grade5, grade6, grade7, grade8, grade9, grade10)) {
+        if (grade5.checked){  sum += 5;
+        grade="5";
+        }
+        else if (grade6.checked){ sum += 6;
+            grade="6";
+        }
+        else if (grade7.checked) {sum += 7;
+            grade="7";}
+        else if (grade8.checked) {sum += 8;
+            grade="8";}
+        else if (grade9.checked) {sum += 9;
+            grade="9";}
+        else if (grade10.checked) {sum += 10;
+        grade="10";
+        }
+        cntOfStudents++;
+    avGrade=document.getElementById("average-val");
+    avGrade.innerHTML=(sum/cntOfStudents).toFixed(1);
+
+    } else {
+        alert("all fields are required");
+        return 0;
+    }
+    if (!checkPhoneValidation(phone.value)){
+        alert("you must enter a valid phone number");
+    return 0
+
+}
+    var row = document.createElement("tr");
+    row.innerHTML = `
+        <td>${name.value}</td>
+        <td>${index.value}</td>
+        <td>${formattedPhone(phone.value)}</td>
+        <td>${grade}</td>
+        <td>${session.value}</td>
+        <td>
+            <button onclick=confirmStudent(this)>Confirm</button>  <button onclick=revertStudent(this)>Revert</button>
+        </td>
+    `;
+
+    var table = document.getElementById("table-body-rows");
+    table.appendChild(row);
+}
+function checkGradeValidation(grade5,grade6,grade7,grade8,grade9,grade10){
+    if(grade5.checked===true||grade6.checked===true||grade7.checked===true||grade8.checked===true||grade9.checked===true||grade10.checked===true){
+        return true
+    }
+    else
+        return false;
+}
+function checkPhoneValidation(phone){
+    return phone.length === 9;
+}
+
+
+function confirmStudent(form){
+var row=form.parentNode.parentNode;
+row.style.background="green";
+form.disabled=true;
+    var revertButton = form.nextElementSibling;
+    revertButton.disabled = true;
+
+
+}
+function revertStudent(form){
+var parent= form.parentNode.parentNode;
+var history=document.getElementById("history");
+var historyStudent=document.createElement("li");
+var id=parent.children[1].innerHTML;
+var grades=parent.children[3].innerHTML;
+historyStudent.innerHTML=id+" - grade " + grades;
+history.append(historyStudent);
+var gradeDeleted=parseInt(parent.children[3].innerHTML);
+cntOfStudents--;
+console.log(sum);
+sum-=gradeDeleted;
+
+console.log(cntOfStudents);
+if(cntOfStudents===0)
+    av=0;
+else
+    var av=(sum/cntOfStudents).toFixed(1);
+var averagegrade=document.getElementById("average-val");
+    averagegrade.innerHTML=av;
+
+    var table=document.getElementById("table-body-rows");
+    table.removeChild(parent);
+
+}
+
+function formattedPhone(phone){
+    let s="";
+    for(let i=0;i<phone.length;i++){
+        s+=phone[i];
+        if(i===2){
+            s+='/';
+        }
+        else if(i===5){
+            s+='-';
+        }
+
+    }
+    return s;
+}
+
+  </script>
+</head>
+<body>
+<div id="full">
+  <div id="header">
+    <div id="left-part">
+<h1>Details</h1>
+        <div id="header-subtitle">
+            <div id="name">
+                <label>Name</label>
+                <input
+                    type="text" id="name1">
+            </div>
+            <div id="index">
+                <label>Index</label>
+                <input
+                        type="text" id="index1">
+            </div>
+            <div id="phone">
+                <label>Phone</label>
+                <input
+                        type="text" id="phone1">
+            </div>
+            <div id="grades">
+                <label>Grade</label>
+                <input type="radio"  id="grades5" name="selectedIndex"><label style="display:inline">5</label>
+                <input type="radio" id="grades6" name="selectedIndex"><label style="display:inline" >6</label>
+                <input type="radio" id="grades7" name="selectedIndex"><label style="display:inline">7</label>
+                <input type="radio" id="grades8" name="selectedIndex"><label style="display:inline">8</label>
+                <input type="radio" id="grades9" name="selectedIndex"><label style="display:inline">9</label>
+                <input type="radio" id="grades10" name="selectedIndex"><label style="display:inline">10</label>
+            </div>
+            <div id="session">
+                <label>Session</label>
+                <select id="session1">
+                    <option></option>
+                    <option>January</option>
+                    <option>June</option>
+                    <option>September</option>
+
+                </select>
+            </div>
+            <div id="import-student">
+                <input type="button" id="import" onclick=calculate() value="Import Student">
+            </div>
+
+        </div>
+    </div>
+    <div id="right-part">
+<h2>Revert history</h2>
+        <ul id="history">
+
+        </ul>
+    </div>
+  </div>
+  <div id="table">
+    <div id="table-header">
+
+<h1>Students (average grade:<span id="average-val"> 0</span>)</h1>
+    </div>
+    <div id="table-body">
+<table>
+    <thead>
+    <th>Name</th>
+    <th>Index</th>
+    <th>Phone</th>
+    <th>Grade</th>
+    <th>Session</th>
+    <th>Actions</th>
+    </thead>
+    <tbody id="table-body-rows">
+
+    </tbody>
+</table>
+    </div>
+  </div>
+</div>
+</body>
+</html>
