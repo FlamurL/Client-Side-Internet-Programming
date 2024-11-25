@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+#bills{
+    display:flex;
+    gap:1rem;
+flex-wrap:wrap;
+
+}
+#full-page{
+    padding:10px;
+}
+h1{
+    text-align: center;
+}
+label{
+    display: inline-block;
+    width:180px;
+}
+#traffic label{
+    width:200px;
+}
+#name, #surname, #register, #age, #traffic,h2,#total-num-bills{
+padding-bottom:20px;
+}
+    </style>
+    <script>
+var total=0;
+
+function generateBill(){
+    var price=3000;
+    var name=document.getElementById("name-1");
+    var surname=document.getElementById("surname-1");
+    var registered=document.getElementById("register-1");
+    var age=document.getElementById("age-1");
+    var trafficY=document.getElementById("trafficYes");
+    var trafficN=document.getElementById("trafficNo");
+    if(name.value===""||surname.value===""||registered.value===""||age.value===""||!(trafficY.checked===false || trafficN.checked===false)){
+        alert("all fields are required" );
+        return 0;
+    }
+if(!checkTable(registered.value)){
+alert("table is not valid")
+return 0;
+}
+if(sameDigits(registered.value)){
+   price+=1000;
+}
+if(trafficY.checked===true)
+    price+=500;
+
+var value=document.getElementById("total-bills");
+total++;
+value.innerHTML=total;
+if(age.value>30) {
+    if (trafficY.checked) {
+        var txt = document.getElementById("bills");
+        var addi = document.createElement("div");
+        addi.innerHTML = `<p>${name.value} ${surname.value}</p>
+<p>${registered.value}</p>
+<p>Accident: Nema</p>
+<p>Age of the driver: ${age.value}</p>
+<p>For payment: ${price}</p>
+<button onclick="payIt(this)">Pay</button><button onclick="deleteIt(this)">Delete</button>
+`
+        addi.style.backgroundColor="red";
+        addi.style.border="1px solid black";
+        txt.appendChild(addi);
+    }
+    else{
+        var txt = document.getElementById("bills");
+        var addi = document.createElement("div");
+        addi.innerHTML = `<p>${name.value} ${surname.value}</p>
+<p>${registered.value}</p>
+<p>Accident: Ima</p>
+<p>Age of the driver: ${age.value}</p>
+<p>For payment: ${price}</p>
+<button onclick="payIt(this)">Pay</button><button onclick="deleteIt(this)">Delete</button>
+
+`
+        addi.style.backgroundColor="red";
+        addi.style.border="1px solid black";
+        txt.appendChild(addi);
+    }
+
+
+}
+else{
+    if (trafficY.checked) {
+        var txt = document.getElementById("bills");
+        var addi = document.createElement("div");
+        addi.innerHTML = `<p>${name.value} ${surname.value}</p>
+<p>${registered.value}</p>
+<p>Accident: Nema</p>
+<p>Age of the driver: ${age.value}</p>
+<p>For payment: ${price}</p>
+<button onclick="payIt(this)">Pay</button><button onclick="deleteIt(this)">Delete</button>
+`
+        addi.style.backgroundColor="green";
+        addi.style.border="1px solid black";
+        txt.appendChild(addi);
+    }
+    else{
+        var txt = document.getElementById("bills");
+        var addi = document.createElement("div");
+        addi.innerHTML = `<p>${name.value} ${surname.value}</p>
+<p>${registered.value}</p>
+<p>Accident: Ima</p>
+<p>Age of the driver: ${age.value}</p>
+<p>For payment: ${price}</p>
+<button onclick="payIt(this)">Pay</button><button onclick="deleteIt(this)">Delete</button>
+`
+        addi.style.backgroundColor="green";
+        addi.style.border="1px solid black";
+        txt.appendChild(addi);
+    }
+}
+
+
+
+
+   /* name.value="";
+    surname.value="";
+    registered.value="";
+    age.value="";
+    trafficY.checked=false;
+    trafficN.checked=false;
+*/
+
+}
+
+function payIt(btn){
+btn.disabled = true;
+var secondbtn=btn.nextElementSibling;
+secondbtn.disabled = true;
+}
+
+function deleteIt(btn){
+var entire=btn.parentNode;
+var txt=document.getElementById("bills");
+txt.removeChild(entire);
+var val=document.getElementById("total-bills");
+total--;
+val.innerHTML=total;
+}
+
+function checkTable(table){
+    if(table.length!==10)
+        return false;
+
+    var parts=table.split("-");
+    var one=parts[0];
+    var two=parts[1];
+    var three=parts[2];
+    if(isNaN(one[0])&&isNaN(one[1])){
+
+    }
+    else{
+
+        return false;
+    }
+    if(!isNaN(two[0])&&!isNaN(two[1])&&!isNaN(two[2])&&!isNaN(two[3])){
+
+    }
+    else {
+
+        return false;
+    }
+        if(isNaN(three[0])&&isNaN(three[1])){
+
+    }
+    else{
+            return false;
+        }
+    return true;
+}
+
+function sameDigits(value){
+    var parts=value.split("-");
+    var two=parts[1];
+    if(two[0]===two[1]&&two[0]===two[2]&&two[0]===two[3]&&two[1]===two[2]&&two[1]===two[3]&&two[2]===two[3]){
+        return true;
+    }
+    return false;
+}
+
+    </script>
+</head>
+<body>
+<div id="full-page">
+    <div id="header">
+        <h1> Vehicle insurance</h1>
+        <div id="name">
+            <label>Name</label>
+            <input type="text" id="name-1">
+        </div>
+        <div id="surname">
+            <label>Surname</label>
+            <input type="text" id="surname-1">
+        </div>
+        <div id="register">
+            <label>Registered Table</label>
+            <input type="text" id="register-1">
+        </div>
+        <div id="age">
+            <label>Age of the driver</label>
+            <input type="text" id="age-1">
+        </div>
+        <div id="traffic">
+            <label>Traffic accident</label>
+            <input type="radio" id="trafficYes" value="Yes" name="traffic1">Yes
+            <input type="radio" id="trafficNo" value="No" name="traffic1">No
+        </div>
+        <input type="button" id="submit" value="Generate Bill" onclick="generateBill()">
+        <h2>Bills</h2>
+        <div id="total-num-bills">Total number of bills for payment: <span id="total-bills">0</span></div>
+    </div>
+    <div id="content">
+<div id="bills"></div>
+
+    </div>
+</div>
+</body>
+</html>
