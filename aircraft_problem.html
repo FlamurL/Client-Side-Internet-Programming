@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<style>
+  #full-page{
+    padding:10px;
+  }
+  #full-page h1{
+    text-align: center;
+  }
+  label{
+    display: inline-block;
+    width:200px;
+  }
+  #name-surname, #identifier, #coordinates, #radius, #height, #type{
+    padding-bottom:10px;
+  }
+#dropdown{
+  width:100px;
+}
+</style>
+  <script>
+    var total=0;
+    function onClick(){
+var name=document.getElementById("name-surname-1");
+var identifier=document.getElementById("identifier-1");
+      var coordinates=document.getElementById("coordinates-1");
+      var radius=document.getElementById("radius-1");
+      var height=document.getElementById("height-1");
+      var type=document.getElementById("dropdown");
+
+      if(name.value===""||identifier.value===""||coordinates.value===""||radius.value===""||height.value===""||type.value===""){
+        alert("All fields are requires");
+        return 0;
+      }
+
+      if(!validateIndetifier(identifier.value)){
+        alert("Please enter a valid identifier.");
+        return 0;
+      }
+
+
+
+
+      total++;
+      var totalReg=document.getElementById("value");
+      totalReg.innerHTML=total;
+
+if(!checkRadius(radius.value)&&!sameDigits(identifier.value)){
+  alert("Please enter a valid radius.")
+  return 0;
+}
+
+      if(!checkHeight(height.value)&&!sameDigits(identifier.value)){
+alert("please enter a valid height")
+        return 0;
+      }
+      if (type.value === "Edrilica") {
+        var txt = document.createElement("li");
+        var field = document.getElementById("items");
+        txt.innerHTML = `<ul><p>${name.value}, ${identifier.value}</p><p>Radius: ${radius.value}, Visina: ${height.value}</p>
+<p>${type.value}</p><p><button onclick="confirmMe(this)">Confirm</button><button onclick="rejectMe(this)">Reject</button></p></ul>`
+        txt.style.border = "1px solid black";
+        field.appendChild(txt);
+
+      }
+
+      else{
+        if(radius.value===height.value){
+          var txt=document.createElement("li");
+          var field=document.getElementById("items");
+          txt.innerHTML=`<ul><p>${name.value}, ${identifier.value}</p><p>Radius: ${radius.value}, Visina: ${height.value}</p><p>${type.value}</p> <p>
+        <button onclick="confirmMe(this)">Confirm</button>
+        <button onclick="rejectMe(this)">Reject</button></p></ul>`
+          txt.style.border="1px solid black";
+          field.appendChild(txt);
+        }
+        else{
+          var txt=document.createElement("ul");
+          var field=document.getElementById("items");
+          txt.innerHTML=`<ul><p>${name.value}, ${identifier.value}</p><p>Radius: ${radius.value}, Visina: ${height.value}</p><p>${type.value}</p>
+        <button onclick="confirmMe(this)">Confirm</button>
+        <button onclick="rejectMe(this)">Reject</button></ul>`
+
+          field.appendChild(txt);
+        }
+
+      }
+
+      name.value="";
+      identifier.value="";
+      coordinates.value="";
+      height.value="";
+      type.value="";
+      radius.value="";
+
+
+
+    }
+    function confirmMe(btn){
+var field=btn.parentNode.parentNode.parentNode;
+field.style.backgroundColor="green";
+    }
+    function rejectMe(btn){
+      var field=btn.parentNode.parentNode.parentNode;
+      var all=document.getElementById("items");
+      all.removeChild(field);
+      total--;
+      var t=document.getElementById("value");
+      t.innerHTML=total;
+    }
+function checkHeight(h){
+      if(h<=150)
+        return true;
+      else false;
+}
+
+function checkRadius(r){
+      if(r<=500)
+        return true;
+      else
+        return false;
+
+}
+
+
+    function validateIndetifier(id){
+
+      if(id.length!==11){
+        return false;
+      }
+
+      else{
+      if(id[0]!=='Z'){
+        return false;
+      }
+        if(id[1]!=='3'){
+          return false;
+        }
+        if(id[2]!=='-'){
+          return false;
+        }
+        if(id[3]!=='U'){
+          return false;
+        }
+        if(id[4]!=='N'){
+          return false;
+        }
+        if(id[5]!=='R'){
+          return false;
+        }
+        if(id[6]!=='-'){
+          return false;
+        }
+        if(isNaN(id[7])){
+          console.log(1);
+          return false;
+        }
+        if(isNaN(id[8])){
+          return false;
+        }
+        if(isNaN(id[9])){
+          return false;
+        }
+        if(isNaN(id[10])){
+          return false;
+        }
+        return true;
+
+      }
+    }
+
+    function sameDigits(s){
+      var val=s.split("-");
+      val=val[2];
+      return val[0] === val[1] && val[0] === val[2] && val[2] === val[1];
+    }
+
+
+  </script>
+</head>
+
+<body>
+<div id="full-page">
+  <div id="header">
+<h1> Register Aircraft</h1>
+<div id="name-surname">
+  <label>Name and surname </label>
+  <input type="text" id="name-surname-1">
+</div>
+    <div id="identifier">
+      <label>Aircraft Identifier</label>
+      <input type="text" id="identifier-1">
+    </div>
+    <div id="coordinates">
+      <label>Coordinates of aircraft</label>
+      <input type="text" id="coordinates-1">
+    </div>
+    <div id="radius">
+      <label>Radius of aircraft</label>
+      <input type="text" id="radius-1">
+    </div>
+    <div id="height">
+      <label>Height of aircraft</label>
+      <input type="text" id="height-1">
+    </div>
+    <div id="type">
+      <label>Type of aircraft</label>
+      <select id="dropdown">
+        <option></option>
+        <option>Edrilica</option>
+        <option>Dron</option>
+      </select>
+    </div>
+    <input type="button" id="submit" value="Register" onclick="onClick()">
+  </div>
+  <div id="bottom-part">
+<h2>Registered Aircraft</h2>
+     <div id="total-aircrafts">Total registered aircrafts: <span id="value">0</span></div>
+       <div id="added-aircrafts">
+
+           <ul id="items"></ul>
+
+
+       </div>
+  </div>
+</div>
+</body>
+</html>
