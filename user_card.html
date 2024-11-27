@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+#full-page{
+    padding:10px;
+}
+h1{
+    text-align: center;
+}
+
+label{
+    display: inline-block;
+    width: 100px;
+}
+#username, #width, #height, #card, #color, #button{
+    padding-bottom:10px;
+}
+#total-sold{
+    padding-top:10px;
+    padding-bottom:40px;
+}
+#place-for-cards{
+    display:flex;
+    gap:3rem;
+    flex-wrap:wrap;
+    text-align:center;
+    align-items:center;
+
+}
+    </style>
+    <script>
+        let cards=0;
+        let total=0;
+function onClick(){
+    let val=0;
+var username = document.getElementById("username1");
+var width = document.getElementById("width1");
+var height = document.getElementById("height1");
+var card = document.getElementById("card1");
+var color = document.getElementById("select");
+if(username.value===""|| isNaN(width.value)|| isNaN(height.value)|| card.value===""|| color.value===""){
+    alert("Please fill all fields");
+return 0;
+}
+
+width.value=parseInt(width.value);
+height.value=parseInt(height.value);
+
+if(width.value>350||height.value>350||height.value<=0||width.value<=0){
+    alert("Please enter valid width and height");
+    return 0;
+}
+if(!validateId(card.value)){
+    alert("Please enter valid card id");
+    return 0;
+}
+val=height.value*width.value*0.5;
+if(color.value==="green")
+    val+=1000;
+
+let getAll=document.getElementById("place-for-cards");
+let newOne=document.createElement("div")
+
+    if(document.getElementById(username.value)){
+        let shouldbedeleted=document.getElementById(username.value).parentNode;
+        getAll.removeChild(shouldbedeleted);
+    }
+
+newOne.innerHTML=`<div id=${username.value} style="width:${width.value}px;height:${height.value}px;display: flex;  box-sizing: border-box; flex-direction:column;
+  justify-content: center;
+  align-items: center; overflow: hidden;"
+<p>ID: ${card.value}</p>
+<p>Width: ${width.value}</p>
+<p>Height: ${height.value}</p>
+<p>Val: ${val}</p>
+<p><button onclick="sell(this, ${val})">Sell</button></p></div>
+`
+    if(color.value==="green")
+        newOne.style.backgroundColor="green";
+    if(color.value==="red")
+        newOne.style.backgroundColor="red";
+    if(color.value==="blue")
+        newOne.style.backgroundColor="blue";
+    if(color.value==="yellow")
+        newOne.style.backgroundColor="yellow";
+getAll.append(newOne);
+}
+
+function validateId(id){
+    for(let i=0;i<id.length;i++){
+        if(isNaN(id[i])){
+
+            let x=id[i].toUpperCase();
+           if(id[i]===x)
+               return false;
+        }
+        else{
+            return false;
+        }
+    }
+    return true
+}
+
+function sell(btn, val) {
+    let getAll=document.getElementById("place-for-cards");
+    let parent=btn.parentNode.parentNode.parentNode;
+    getAll.removeChild(parent);
+    total+=val;
+    let t=document.getElementById("val");
+    t.innerHTML=total;
+
+}
+    </script>
+</head>
+<body>
+<div id="full-page">
+    <div id="header">
+        <h1>User Cards</h1>
+        <div id="username">
+            <label> Username</label>
+            <input type="text" name="username" id="username1">
+
+        </div>
+        <div id="width">
+            <label> Width</label>
+            <input type="text" name="username" id="width1">
+px
+        </div>
+        <div id="height">
+            <label> Height</label>
+            <input type="text" name="username" id="height1">
+            px
+
+        </div>
+        <div id="card">
+            <label>Card ID</label>
+            <input type="text" name="username" id="card1">
+
+        </div>
+        <div id="color">
+            <label> Color</label>
+            <select id="select" style="width:177px;">
+                <option></option>
+                <option>red</option>
+                <option>green</option>
+                <option>blue</option>
+                <option>yellow</option>
+            </select>
+
+        </div>
+        <div id="button">
+            <input type="button" value="Create" onclick="onClick()">
+        </div>
+        <div id="total-sold">Total value of sold vards: <span id="val">0</span></div>
+        <div id="place-for-cards">
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
