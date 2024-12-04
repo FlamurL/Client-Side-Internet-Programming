@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script>
+    var num1=prompt("Enter first number");
+    var num2=prompt("Enter second number");
+    var num3=prompt("Enter third number");
+    var num4=prompt("Enter fourth number");
+    var num5=prompt("Enter fifth number");
+    if(num1.length!==3||num2.length!==3||num3.length!==3||num4.length!==3||num5.length!==3){
+      alert("All numbers should be 3 digits");
+
+    }
+    else {
+      num1 = parseInt(num1);
+      num2 = parseInt(num2);
+      num3 = parseInt(num3);
+      num4 = parseInt(num4);
+      num5 = parseInt(num5);
+      function sumOfDigits(num) {
+        return num % 10 + Math.floor(num / 10) % 10 + Math.floor(num / 100);
+      }
+
+
+      var sum1 = sumOfDigits(num1);
+      var sum2 = sumOfDigits(num2);
+      var sum3 = sumOfDigits(num3);
+      var sum4 = sumOfDigits(num4);
+      var sum5 = sumOfDigits(num5);
+
+
+      var sums = [sum1, sum2, sum3, sum4, sum5];
+      var numbers = [num1, num2, num3, num4, num5];
+      var maxSum = Math.max(...sums);
+      var maxNumber = numbers[sums.indexOf(maxSum)];
+
+
+      alert("The number with the largest sum of digits is: " + maxNumber);
+
+
+
+    }
+  </script>
+</head>
+<body>
+
+</body>
+</html>
