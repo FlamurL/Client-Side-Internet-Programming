@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script>
+        let is=true;
+        while(is){
+            var number=prompt("Enter your name");
+            if(number===".")
+                is=false
+            else{
+                let isprime=true;
+                number=parseInt(number);
+                for(let i=2;i<number;i++){
+                    if(number%i===0){
+                        isprime=false;
+                        break;
+                    }
+                }
+                if(isprime){
+                    document.write(`${number} is a prime number </br>`);
+                }
+                else{
+                    document.write(`${number} is not a prime number </br>`);
+                }
+
+
+            }
+
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
