@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #numbers {
+            margin-bottom: 20px;
+        }
+
+        input[type="radio"] {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid lightgray;
+            border-radius: 50%;
+            background-color: lightgrey;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            margin-top:10px;
+        }
+
+        input[type="radio"]:checked::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: gray;
+            border-radius: 50%;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+        }
+        #val{
+            margin-top:20px;
+        }
+    </style>
+    <script>
+let res=0;
+        function addNum(){
+var num1 = document.getElementById("first").value;
+ var num2 = document.getElementById("second").value;
+ if(num1===""||num2===""){
+
+         alert("Enter both numbers");
+
+return 0;
+     }
+
+
+            num1=parseInt(num1);
+
+            num2=parseInt(num2);
+            res=num1+num2;
+
+
+        }
+        function minNum(){
+            var num1 = document.getElementById("first").value;
+            var num2 = document.getElementById("second").value;
+            if(num1===""||num2===""){
+
+                alert("Enter both numbers");
+
+                return 0;
+            }
+            num1=parseInt(num1);
+
+            num2=parseInt(num2);
+            res=num1-num2;
+
+        }
+        function multiplyNum(){
+            var num1 = document.getElementById("first").value;
+            var num2 = document.getElementById("second").value;
+            if(num1===""||num2===""){
+
+                alert("Enter both numbers");
+
+                return 0;
+            }
+            num1=parseInt(num1);
+
+            num2=parseInt(num2);
+            res=num1*num2;
+
+        }
+        function divideNum(){
+            var num1 = document.getElementById("first").value;
+            var num2 = document.getElementById("second").value;
+            if(num1===""||num2===""){
+
+                alert("Enter both numbers");
+
+                return 0;
+            }
+            num1=parseInt(num1);
+
+            num2=parseInt(num2);
+            res=num1/num2;
+
+        }
+        function sinNum(){
+            var num1 = document.getElementById("first").value;
+            var num2 = document.getElementById("second").value;
+            if(num1===""&&num2===""){
+
+                alert("Enter atleast one number");
+
+                return 0;
+            }
+            if(num1==="") {
+
+
+                num2 = parseInt(num2);
+                res = Math.sin(num2);
+
+            }
+            else{
+                num1 = parseInt(num1);
+                res = Math.sin(num1);
+            }
+
+        }
+        function cosNum(){
+            var num1 = document.getElementById("first").value;
+            var num2 = document.getElementById("second").value;
+            if(num1===""&&num2===""){
+
+                alert("Enter atleast one number");
+
+                return 0;
+            }
+            if(num1==="") {
+
+
+                num2 = parseInt(num2);
+                res = Math.cos(num2);
+
+            }
+            else{
+                num1 = parseInt(num1);
+                res = Math.cos(num1);
+            }
+        }
+        function tanNum(){
+            var num1 = document.getElementById("first").value;
+            var num2 = document.getElementById("second").value;
+            if(num1===""&&num2===""){
+
+                alert("Enter atleast one number");
+
+                return 0;
+            }
+            if(num1==="") {
+
+
+                num2 = parseInt(num2);
+                res = Math.tan(num2);
+
+            }
+            else{
+                num1 = parseInt(num1);
+                res = Math.tan(num1);
+            }
+        }
+        function absoluteNum(){
+            var num1 = document.getElementById("first").value;
+            var num2 = document.getElementById("second").value;
+            if(num1===""&&num2===""){
+
+                alert("Enter atleast one number");
+
+                return 0;
+            }
+            if(num1==="") {
+
+
+                num2 = parseInt(num2);
+                res = num2;
+
+            }
+            else{
+                num1 = parseInt(num1);
+                res = num1;
+            }
+        }
+        function sqaureNum(){
+            var num1 = document.getElementById("first").value;
+            var num2 = document.getElementById("second").value;
+            if(num1===""||num2===""){
+
+                alert("both numbers should be entered");
+
+                return 0;
+            }
+            num1 = parseInt(num1);
+            num2 = parseInt(num2);
+            res=Math.pow(num1,num2);
+
+
+
+        }
+        function rootNum(){
+            var num1 = document.getElementById("first").value;
+            var num2 = document.getElementById("second").value;
+            if(num1===""&&num2===""){
+
+                alert("Enter atleast one number");
+
+                return 0;
+            }
+            if(num1==="") {
+
+
+                num2 = parseInt(num2);
+                res = Math.sqrt(num2);
+
+            }
+            else{
+                num1 = parseInt(num1);
+                res = Math.sqrt(num1);
+            }
+        }
+
+
+function calc(){
+var result=document.getElementById("val");
+result.innerHTML=res;
+}
+
+    </script>
+</head>
+<body>
+<div id="full-page">
+    <h1>Calculator</h1>
+    <div id="numbers">
+        a<input type="text" id="first" style="width:20px;">
+        b<input type="text" id="second" style="width:20px;">
+    </div>
+    <div id="types" style="margin-bottom:20px; ">
+        <div>
+            <input type="radio" value="a+b" name="mult" onclick="addNum()">a+b
+       <input type="radio" value="a-b" name="mult" onclick="minNum()"> a-b
+       <input type="radio" value="a*b" name="mult" onclick="multiplyNum()"> a*b
+      <input type="radio" value="a/b" name="mult" onclick="divideNum()">  a/b </div>
+        <div>
+       <input type="radio" value="sin(a)" name="mult" onclick="sinNum()"> sin(a)
+        <input type="radio" value="cos(a)" name="mult" onclick="cosNum()"> cos(a)
+        <input type="radio" value="tg(a)" name="mult" onclick="tanNum()"> tg(a) </div>
+        <input type="radio" value="[a]" name="mult" onclick="absoluteNum()">[a]
+        <input type="radio" value="a^b" name="mult" onclick="sqaureNum()"> a<sup>b</sup>
+        <input type="radio" value="sqrt(a)" name="mult" onclick="rootNum()"> &radic;<span style="text-decoration:
+overline">a</span>
+    </div>
+    <input type="button" value="Calculate"  onclick="calc()">
+    <div id="val"></div>
+</div>
+</body>
+</html>
