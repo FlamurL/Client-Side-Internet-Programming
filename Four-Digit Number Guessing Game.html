@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script>
+        let att=0;
+
+        let genRandNum=Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
+        function guess(){
+
+            let place=0;
+            let right=0;
+var num=document.getElementById("guess").value;
+if(num.length!==4)
+{
+    alert("Please enter a four digit number")
+    return 0;
+}
+console.log(genRandNum);
+
+for(let i=0;i<4;i++){
+    let k=genRandNum.toString();
+    if(num===k){
+        alert("Congrats you have found the number");
+        return 0;
+    }
+    if(num[i]===k[i])
+        place++;
+    for(let j=0;j<4;j++) {
+        if (num[i] === k[j]) {
+            right++;
+            k[j] = 'l';
+            break;
+
+        }
+
+    }
+}
+let s=document.createElement("div");
+let show=document.getElementById("prikaz");
+
+s.innerHTML=`We have ${right} digits right and ${place} places right for ${num}`;
+
+show.appendChild(s);
+            att++;
+
+
+            var attempts = document.getElementById("obid");
+            attempts.innerHTML = `Attempts ${att}`;
+
+
+            if (att === 11) {
+                alert("You have no attempts left");
+                startagain();
+            }
+        }
+        function startagain(){
+            genRandNum=Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000
+
+                let place=0;
+                let right=0;
+                var num=document.getElementById("guess");
+                num.innerHTML="";
+
+
+                let s=document.createElement("div");
+                let show=document.getElementById("prikaz");
+
+
+                show.innerHTML="";
+att=0;
+                var attempts=document.getElementById("obid");
+
+                obid.innerHTML=`Attempts 0`;
+        }
+
+
+    </script>
+</head>
+<body>
+<div>
+    <div style="text-align:right; float:left">
+        <label id="obid">Attempts 0</label>
+        <p>Enter a number: <input id="guess" style="width:150px"/></p>
+        <button onclick="guess()">Guess</button>
+        <button onclick="startagain()">Start again</button>
+    </div>
+</div>
+<br/>
+<div id="prikaz" style="clear: both">
+</div>
+</body>
+</html>
