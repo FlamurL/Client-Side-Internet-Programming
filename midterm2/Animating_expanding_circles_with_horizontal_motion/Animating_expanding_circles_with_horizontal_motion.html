@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js"></script>
+  <style>
+    #container {
+      width: 100%;
+      height: 800px;
+      position: relative;
+    }
+
+    .circle {
+      background-color: tomato;
+      width: 100px;
+      height: 100px;
+      margin: 40px;
+      border-radius: 50%;
+      position: absolute;
+      top: 100px;
+    }
+
+    .circle:nth-child(2) {
+      top: 250px;
+    }
+
+    .circle:nth-child(3) {
+      top: 400px;
+    }
+  </style>
+</head>
+
+<body>
+<div id="container">
+  <div class="circle"></div>
+  <div class="circle"></div>
+  <div class="circle"></div>
+</div>
+
+<script>
+  function moveAndScaleCircles() {
+    let circles = document.getElementsByClassName('circle');
+    for (let i = 0; i < circles.length; i++) {
+      let leftPosition = 0;
+      let scale = 1;
+
+      let interval = setInterval(() => {
+        leftPosition += 5;
+        scale += 0.01;
+        circles[i].style.left = `${leftPosition}px`;
+        circles[i].style.transform = `scale(${scale})`;
+
+        if (leftPosition >= 400) {
+          clearInterval(interval);
+        }
+      }, 50);
+    }
+  }
+
+  function moveAndScaleCirclesWithAnimeJs() {
+    anime({
+      targets: '.circle',
+      translateX: 400,
+      scale: 1.5,
+      duration: 3000,
+      easing: 'easeInOutQuad',
+      delay: anime.stagger(500)
+    });
+  }
+
+  window.onload = function () {
+    moveAndScaleCircles(); // setInterval approach
+    moveAndScaleCirclesWithAnimeJs(); // anime.js approach
+  };
+</script>
+</body>
+
+</html>
