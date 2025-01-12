@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <style>
+        label{
+            display:inline-block;
+            width:80px;
+
+        }
+        #category, #amount {
+            margin-bottom:10px
+        }
+        #chart{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+    </style>
+</head>
+
+
+<body>
+<h1>Budget Tracker</h1>
+<div id="category">
+  <label>Category:</label>
+  <input type="text" id="categoryHolder" placeHolder="Enter a category">
+</div>
+<div id="amount">
+  <label>Amount:</label>
+  <input type="number" id="amountHolder" placeholder="Enter an amount">
+</div>
+<div id="btns">
+    <button id="addExpense" onclick="addExpense()">Add Expense</button>
+    <button id="showPie" onclick="showPie()">Show Pie Chart</button>
+</div>
+<ul id="elements">
+
+</ul>
+<div id="chart">
+
+</div>
+<script>
+let data=[]
+
+    function addExpense(){
+let c=document.getElementById("categoryHolder").value;
+let amount=document.getElementById("amountHolder").value
+        let element={
+    category:c,
+            amount:amount
+        }
+
+        data.push(element);
+let createdElement=document.createElement("li");
+let elements=document.getElementById("elements");
+createdElement.innerHTML=c+" - "+amount+"$";
+elements.appendChild(createdElement);
+        document.getElementById("categoryHolder").value = "";
+        document.getElementById("amountHolder").value = "";
+    }
+
+    function showPie(){
+let amounts=data.map(data =>data.amount);
+let categories=data.map(category=>category.category);
+let chartContent = {
+    values:amounts,
+    labels:categories,
+    type:'pie'
+}
+let chartType ={
+    title: 'Expense Distribution',
+    height:400,
+    width:500,
+}
+Plotly.newPlot('chart',[chartContent],chartType)
+
+    }
+</script>
+</body>
+</html>
