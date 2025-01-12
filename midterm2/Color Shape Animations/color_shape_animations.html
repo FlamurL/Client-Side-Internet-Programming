@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <style>
+
+        h1{
+            text-align:center;
+        }
+#color, #btns{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+*full-page{
+    display:flex;
+    justify-content: center;
+align-items: center;
+}
+#black-line{
+    width: 50%;
+    height: 500px;
+    border: 1px solid black;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    position:relative;
+}
+
+
+    </style>
+
+</head>
+<body>
+<div id="full-page">
+<h1>Color Shape Animations</h1>
+
+   <div id="content">
+  <div id="color">
+      <label for="type">Choose a color:</label>
+      <select id="type">
+          <option value="nil">--Select--</option>
+          <option value="red">Red</option>
+          <option value="yellow">Yellow</option>
+          <option value="blue">Blue</option>
+      </select>
+  </div>
+       <div id="btns">
+           <button id="stopanimation" onclick="stopAnimation()" style="margin-right:5px;">Stop Animation</button>
+           <button id="resetanimation" onclick="resetbtn()">Reset</button>
+       </div>
+   </div>
+<div id="black-line"></div>
+
+
+</div>
+
+<script>
+let colors=document.getElementById('type');
+let circlePlaceholder=document.getElementById('black-line');
+let circle =document.createElement('div');
+circle.style.height='50px';
+circle.style.width='50px';
+circle.style.borderRadius='50%';
+circle.style.position="relative";
+circlePlaceholder.appendChild(circle);
+let animation=null;
+
+colors.addEventListener("change",()=>{
+    circle.style.background=colors.value;
+    if(colors.value==='red'){
+        circle.style.border="1px solid black";
+        animation = anime({
+            targets:circle,
+            translateY:0,
+            keyframes: [
+                {scale:[1,2],},
+                {scale:[2,1],},
+            ],
+            opacity: 1,
+            duration:2000,
+            easing: "easeInOutQuart",
+            loop:true
+        })
+    }else if(colors.value==='blue'){
+        animation=anime({
+            targets:circle,
+            scale:1,
+            opacity:1,
+            keyframes:[
+                {translateY:[-circlePlaceholder.offsetTop,circlePlaceholder.offsetTop]},
+                {translateY:[circlePlaceholder.offsetTop,-circlePlaceholder.offsetTop]},
+                {translateY:[-circlePlaceholder.offsetTop,0]}
+            ],
+            duration: 2000,
+            easing: "easeInOutQuart",
+            loop:true
+        })
+    }else if (colors.value === 'yellow') {
+        animation = anime({
+            targets: circle,
+            translateY: 0,
+            scale: 1,
+            keyframes: [
+                {opacity: [1, 0],},
+                {opacity: [0, 1],},
+            ],
+            duration: 2000,
+            easing: "easeInOutQuart",
+            loop:true
+        })
+    }
+    else {
+        circle.style.background = '';
+        circle.style.top = '0';
+        circle.style.opacity = '0';
+        circle.style.border = '0';
+    }
+
+})
+
+function stopAnimation() {
+    if (animation) {
+        animation.pause();
+    }
+}
+
+
+
+
+    function resetbtn(){
+        if (animation) {
+            animation.reset();
+        }
+
+        circle.style.background = '';
+        circle.style.border = '';
+        circle.style.top = '0px';
+
+        colors.value = 'nil';
+    }
+
+
+</script>
+</body>
+</html>
+
