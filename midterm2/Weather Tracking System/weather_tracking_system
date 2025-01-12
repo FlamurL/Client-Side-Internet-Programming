@@ -1,0 +1,216 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style>
+
+    table, th, td{
+        border:1px solid black;
+        border-collapse: collapse;
+        padding:2px 30px;
+        text-align:center
+
+
+    }
+
+</style>
+
+</head>
+<body>
+<h1>Weather Tracker</h1>
+<div id="city">
+    <label>City:</label>
+    <input type="text" id="cityHolder">
+</div>
+<div id="temp">
+    <label>Temperature (°C):</label>
+    <input type="text" id="tempHolder">
+</div>
+<div id="day">
+    <label>Day of Month:</label>
+    <input type="text" id="dayHolder">
+</div>
+<button onclick="addBtn()" id="addRecord">Add Record</button>
+<div id="temp-records">
+    <h3>Temperature Records</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>City</th>
+            <th>Temperature (°C)</th>
+            <th>Day</th>
+        </tr>
+        </thead>
+        <tbody id="body"></tbody>
+    </table>
+</div>
+<button id="show-line-btn" onclick="showLineBtn()">Show Line Chart</button>
+<div id="chart"></div>
+
+
+<script>
+    let data=[]
+function addBtn(){
+        let city=document.getElementById('cityHolder').value;
+        let temp=document.getElementById('tempHolder').value;
+        let day=document.getElementById('dayHolder').value;
+
+let elements=document.getElementById('body');
+let element=document.createElement('tr');
+element.innerHTML=`<td>${city}</td><td>${temp}</td><td>${day}</td>`
+elements.appendChild(element);
+
+let row={
+    city:city,
+    temp:temp,
+    day:day
+}
+    data.push(row);
+
+    }
+
+
+function showLineBtn(){
+let temps=data.map(e=>e.temp);
+let days=data.map(e=>e.day)
+let cities=data.map(e=>e.city)
+
+    let line={
+    x:days,
+        y:temps,
+        mode:"lines",
+        name: ''+cities+''
+    }
+
+    let layout ={
+    title: {text: 'Temperature Trend by Day'}
+    }
+    Plotly.newPlot('chart',[line],layout);
+}
+
+</script>
+</body>
+</html>
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Tracker</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 2px 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1>Weather Tracker</h1>
+<div id="city">
+    <label>City:</label>
+    <input type="text" id="cityHolder">
+</div>
+<div id="temp">
+    <label>Temperature (°C):</label>
+    <input type="number" id="tempHolder">
+</div>
+<div id="day">
+    <label>Day of Month:</label>
+    <input type="number" id="dayHolder">
+</div>
+<button onclick="addBtn()" id="addRecord">Add Record</button>
+<div id="temp-records">
+    <h3>Temperature Records</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>City</th>
+            <th>Temperature (°C)</th>
+            <th>Day</th>
+        </tr>
+        </thead>
+        <tbody id="body"></tbody>
+    </table>
+</div>
+<button id="show-line-btn" onclick="showLineBtn()">Show Line Chart</button>
+<div id="chart"></div>
+
+<script>
+    let data = [];
+
+    function addBtn() {
+        let city = document.getElementById('cityHolder').value.trim();
+        let temp = parseFloat(document.getElementById('tempHolder').value);
+        let day = parseInt(document.getElementById('dayHolder').value);
+
+
+        if (!city || isNaN(temp) || isNaN(day)) {
+            alert("Please fill all fields with valid data.");
+            return;
+        }
+
+
+        let elements = document.getElementById('body');
+        let element = document.createElement('tr');
+        element.innerHTML = `<td>${city}</td><td>${temp}°C</td><td>${day}</td>`;
+        elements.appendChild(element);
+
+
+        let row = {
+            city: city,
+            temp: temp,
+            day: day
+        };
+        data.push(row);
+
+
+        document.getElementById('cityHolder').value = '';
+        document.getElementById('tempHolder').value = '';
+        document.getElementById('dayHolder').value = '';
+    }
+
+    function showLineBtn() {
+        if (data.length === 0) {
+            alert("No data to display. Please add some records first.");
+            return;
+        }
+
+
+        let cityGroups = {};
+        data.forEach(record => {
+            if (!cityGroups[record.city]) {
+                cityGroups[record.city] = { days: [], temps: [] };
+            }
+            cityGroups[record.city].days.push(record.day);
+            cityGroups[record.city].temps.push(record.temp);
+        });
+        console.log(cityGroups)
+
+
+        let traces = Object.keys(cityGroups).map(city => ({
+            x: cityGroups[city].days,
+            y: cityGroups[city].temps,
+            mode: "lines+markers",
+            name: city
+        }));
+
+
+        let layout = {
+            title: { text: 'Temperature Trend by Day', font: { size: 18 } },
+            xaxis: { title: 'Day of Month' },
+            yaxis: { title: 'Temperature (°C)' }
+        };
+
+
+        Plotly.newPlot('chart', traces, layout);
+    }
+</script>
+</body>
+</html>
