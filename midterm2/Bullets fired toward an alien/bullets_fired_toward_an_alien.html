@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Alien game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <style>
+        #playField {
+            width: 800px;
+            height: 600px;
+            position: relative;
+        }
+    </style>
+
+</head>
+<body>
+<h1>Alien shooter game</h1>
+
+<button onclick="goUp()">Up</button>
+<button onclick="goDown()">Down</button>
+<button onclick="shoot()">Shoot</button>
+
+<div id="playField" style="margin-top: 20px">
+
+</div>
+
+<script>
+
+    let playField = document.getElementById("playField");
+    let rocketShip = document.createElement("img");
+    rocketShip.src = 'img_1.png';
+    rocketShip.style.width = '100px';
+    rocketShip.style.height = '50px';
+    rocketShip.style.position = 'absolute';
+    rocketShip.style.left = "0";
+    playField.appendChild(rocketShip);
+
+
+    let alien = document.createElement("img");
+
+    let alienY = Math.random() * playField.offsetWidth;
+    console.log(playField.offsetWidth)
+    console.log(alienY);
+
+    alien.src = 'img_2.png';
+    alien.style.width = '100px';
+    alien.style.height = '50px';
+    alien.style.position = 'relative';
+    alien.style.top = alienY + 'px';
+    alien.style.left = (Math.random() * playField.offsetHeight) + 50 + 'px';
+    playField.appendChild(alien);
+
+    let rocketY = 0;
+
+    function goUp() {
+        rocketY -= 20;
+        anime({
+            targets: rocketShip,
+            translateY: rocketY,
+            duration: 500,
+            easing: 'linear',
+        })
+    }
+
+    function goDown() {
+        rocketY += 20;
+        anime({
+            targets: rocketShip,
+            translateY: rocketY,
+            easing: 'linear',
+            duration: 500
+        })
+    }
+
+    function shoot() {
+        let bullet = document.createElement("div");
+        bullet.style.width = '50px';
+        bullet.style.height = '5px';
+        bullet.style.background = 'red';
+        bullet.style.position = 'absolute';
+        bullet.style.top = rocketY + 'px';
+
+        playField.appendChild(bullet);
+
+        anime({
+            targets: bullet,
+            translateX: [0, 800],
+            duration: 500,
+            easing: 'linear',
+            complete: function () {
+                let bulletPos = parseFloat(bullet.style.top);
+                let alienPos = parseFloat(alien.style.top);
+
+                if(Math.abs(bulletPos - alienPos) < 10){
+                    alien.remove();
+                    refreshPage();
+                }
+                bullet.remove();
+            }
+        })
+    }
+
+    function refreshPage(){
+        window.location.reload();
+    }
+
+</script>
+
+</body>
+</html>
