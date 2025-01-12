@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    table, th, td{
+      border:1px solid black;
+      border-collapse: collapse;
+      padding:2px 30px;
+      text-align:center
+
+
+    }
+  </style>
+</head>
+<body>
+<div id="full-page">
+  <div id="name">
+    <label>Name of the product</label>
+    <input type="text" id="nameHolder">
+  </div>
+  <div id="cost">
+    <label>Cost of the product</label>
+    <input type="text" id="costHolder">
+  </div>
+  <div id="month">
+    <label>Month of the sale</label>
+    <input type="text" id="monthHolder">
+
+  </div>
+  <div id="table">
+    <table>
+      <thead>
+      <tr>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Month</th>
+
+      </tr>
+      </thead>
+      <tbody id="sales">
+
+      </tbody>
+    </table>
+  </div>
+
+<div id="btns">
+  <div id="add">
+    <button id="addButton" onclick="addBtn()">Add Product</button>
+  </div>
+  <div id="showHistogram">
+    <button id="showHistogramButton" onclick="showBtn()">Show Histogram</button>
+  </div>
+</div>
+  <div id="chart"></div>
+
+</div>
+
+
+
+
+<script>
+let data=[]
+
+  function addBtn(){
+    let name=document.getElementById('nameHolder').value;
+    let cost=document.getElementById('costHolder').value;
+    let month=document.getElementById('monthHolder').value;
+
+
+let body=document.getElementById('sales');
+let newElement=document.createElement('tr');
+newElement.innerHTML=`<td>${name}</td><td>${cost}</td><td>${month}</td>`;
+body.appendChild(newElement)
+    let element={
+  cost:cost,
+      month:month
+    }
+data.push(element);
+  }
+
+
+
+  function showBtn(){
+let months=data.map(e=>e.month)
+let costs=data.map(e=>e.cost);
+
+let chartContent=[{
+  x:months,
+  y:costs,
+  type:'bar'
+}]
+
+    Plotly.newPlot('chart',chartContent)
+
+}
+
+
+</script>
+</body>
+</html>
