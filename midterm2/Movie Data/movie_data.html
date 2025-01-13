@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie App</title>
+</head>
+<style>
+
+</style>
+<body>
+    <h2>Movie App</h2>
+    <label for="movie_title">Movie title: </label><input type="text" id="movie_title"> <button onclick="get_data()">Get movie data</button>
+    <h4 id="title"></h4>
+    <p id="actors"></p>
+    <p id="director"></p>
+    <p id="plot"></p>
+    <img src="" id="poster">
+<script>
+    function get_data() {
+        var movie_title = document.getElementById("movie_title")
+        movie_title = movie_title.value
+        var api_key = "9edd47e4"
+        var url = "https://www.omdbapi.com/?apikey="+api_key+"&t="+movie_title
+        fetch(url)
+            .then(response=>response.json())
+            .then(function (data) {
+              
+                document.getElementById("title").innerHTML = "Title: " + data.Title
+                document.getElementById("actors").innerHTML = "Actors: " + data.Actors
+                document.getElementById("director").innerHTML = "Director: " + data.Director
+                document.getElementById("plot").innerHTML = "Plot: " + data.Plot
+                document.getElementById("poster").setAttribute("src", data.Poster)
+            })
+    }
+</script>
+</body>
+</html>
