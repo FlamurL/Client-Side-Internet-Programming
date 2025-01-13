@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <style>
+#full-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+flex-direction: column;
+
+
+}
+
+#rectangles{
+
+    width:1400px;
+    height:600px;
+}
+    </style>
+
+</head>
+<body>
+<div id="full-page">
+<button id="generate" onclick="generateRectangle()">Generate Rectangle</button>
+<div id="rectangles"></div>
+</div>
+
+<script>
+    const colors = [
+        "#FF5733",
+        "#33FF57",
+        "#5733FF",
+        "#FFC300",
+        "#FF33A8",
+        "#33FFF5",
+        "#A833FF",
+        "#FF8C33",
+        "#33FF8C",
+        "#3375FF"
+    ];
+
+
+let animation=[];
+    function generateRectangle(){
+        let placeHolder=document.getElementById("rectangles");
+        let rec=document.createElement("div");
+        let h=Math.floor(Math.random()*120);
+        console.log(h);
+        let w=Math.floor(Math.random()*120);
+        let top=Math.random()*placeHolder.offsetHeight;
+        let bottom=Math.random()*placeHolder.offsetWidth;
+        rec.style.top=top+50+'px';
+        rec.style.left=bottom+'px';
+        rec.style.height=`${h}px`;
+        rec.style.width=`${w}px`;
+        rec.style.position='absolute';
+        let colorIndex = Math.floor(Math.random() * colors.length);
+        rec.style.backgroundColor = colors[colorIndex];
+        placeHolder.appendChild(rec);
+
+        anime({
+            targets: rec,
+            opacity: [0, 1],
+            duration: 1000,
+            easing: "easeInOutQuad",
+        })
+
+    }
+</script>
+</body>
+</html>
