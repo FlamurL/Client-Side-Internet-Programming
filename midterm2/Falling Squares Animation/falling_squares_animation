@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+  <style>
+    #full-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    #squares {
+      margin-top: 20px;
+      width: 1500px;
+      height: 600px;
+      background-color: #e8e5e5;
+      position: relative;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+<div id="full-page">
+  <h1>Falling and Fading Squares</h1>
+  <div id="btns">
+    <button id="generate" onclick="generateSquare()" style="margin-right: 10px;">Generate Square</button>
+    <button id="reset" onclick="resetBtn()">Reset</button>
+  </div>
+  <div id="squares"></div>
+</div>
+
+<script>
+  const colors = [
+    "#FF5733",
+    "#33FF57",
+    "#5733FF",
+    "#FFC300",
+    "#FF33A8",
+    "#33FFF5",
+    "#A833FF",
+    "#FF8C33",
+    "#33FF8C",
+    "#3375FF"
+  ];
+
+  function generateSquare() {
+    let squares = document.getElementById('squares');
+    for (let i = 0; i < 10; i++) {
+      let square = document.createElement('div');
+      square.style.height = '20px';
+      square.style.width = '20px';
+      let colorIndex = Math.floor(Math.random() * colors.length);
+      square.style.backgroundColor = colors[colorIndex];
+      square.style.position = 'absolute';
+      square.style.top = '0px';
+      square.style.left = Math.random() * (squares.offsetWidth - 20) + 'px';
+      squares.appendChild(square);
+
+      // Anime.js animation
+      anime({
+        targets: square,
+        scale: 1,
+        opacity: [1, 0],
+        translateY: [0, squares.offsetHeight - 20],
+        duration: 3000,
+        easing: 'linear',
+        complete: function () {
+          square.remove();
+        }
+      });
+    }
+  }
+
+  function resetBtn() {
+    let squares = document.getElementById('squares');
+    squares.innerHTML = '';
+  }
+</script>
+</body>
+</html>
